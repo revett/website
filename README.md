@@ -9,5 +9,9 @@ Personal website
 bun i
 
 # Run web server
-make run
+make local
+
+# Build and serve on Railway
+make railway-buid
+make railway-serve
 ```
