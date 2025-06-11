@@ -1,6 +1,6 @@
 # website
 
-Personal website
+Personal website, built using [11ty/eleventy](https://github.com/11ty/eleventy).
 
 ## Local Development
 
