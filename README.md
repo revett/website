@@ -8,10 +8,6 @@ Personal website
 # Install deps
 bun i
 
-# Run web server
+# Run web server → http://localhost:5173
 make local
-
-# Build and serve on Railway
-make railway-buid
-make railway-serve
 ```
