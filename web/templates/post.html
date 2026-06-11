@@ -1,0 +1,9 @@
+{{define "post"}}
+<article>
+  <p><a href="/" class="text-sm text-soft hover:underline">&larr; Back</a></p>
+  <h1 class="mt-5 text-3xl font-bold leading-tight">{{.Page.Title}}</h1>
+  <p class="mt-3 text-sm text-soft">By Charlie Revett &middot; <time datetime="{{iso .Page.Date}}">{{date .Page.Date}}</time></p>
+  {{if .Page.Cover}}<img src="{{.Page.Cover}}" alt="" class="mt-8 w-full rounded-xl">{{end}}
+  <div class="prose mt-8">{{.Page.Body}}</div>
+</article>
+{{end}}
