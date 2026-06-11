@@ -3,22 +3,23 @@
 Personal website 👋
 
 A static site built with a tiny custom Go generator, Tailwind (standalone binary, no Node), and
-Markdown content. Deployed to GitHub Pages via Actions.
+Markdown content. Hosted on GitHub Pages.
 
 ## Layout
 
 ```
 content/    Markdown pages, posts, now editions, images, files
 web/        Templates, CSS, static assets (fonts, favicon, robots.txt)
-generator/  The Go tool that renders content + web into dist/
+generator/  Go CLI; the site package within renders content + web into dist/
 ```
 
 ## Usage
 
 ```
-make serve   # local dev server on :8080 with live reload
-make build   # render the full site into dist/
-make check   # validate internal links in dist/
+make serve    # local dev server on :8080 with live reload
+make build    # render the full site into dist/
+make check    # validate internal links in dist/
+make thumbs   # regenerate the committed post cover thumbnails
 ```
 
 The only dependencies are Go (plus goldmark and yaml.v3) and the Tailwind standalone binary, which

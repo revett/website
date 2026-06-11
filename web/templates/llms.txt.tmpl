@@ -1,0 +1,17 @@
+# {{ .Name }}
+
+> {{ .Site.Home.Description }}
+
+Markdown versions of every page are linked below.
+
+## Pages
+
+- [About]({{ .Base }}/index.md): {{ .Site.Home.Description }}
+- [CV]({{ .Base }}/cv.md): {{ .Site.CV.Description }}
+- [Now]({{ .Base }}/now.md): What Charlie is working on and thinking about right now.
+
+## Posts
+
+{{ range .Site.Posts -}}
+- [{{ .Title }}]({{ $.Base }}{{ trimSlash .Slug }}.md): {{ .Description }}
+{{ end -}}
