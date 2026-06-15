@@ -12,7 +12,6 @@
 <link rel="preload" href="/fonts/kumbh-sans-regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/kumbh-sans-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/style.css">
-
 <meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}">
 <meta property="og:title" content="{{ $title }}">
 <meta property="og:description" content="{{ .Description }}">
@@ -20,28 +19,28 @@
 {{ with .Params.ogImage }}<meta property="og:image" content="{{ . | absURL }}">
 <meta name="twitter:card" content="summary_large_image">
 {{ end }}</head>
-<body class="bg-paper font-sans text-ink antialiased">
-<div class="mx-auto max-w-2xl px-5">
-  <header class="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 py-8">
-    <a href="/" class="font-bold">Charlie Revett</a>
-    <nav class="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm">
-      <a href="/" class="hover:underline">About</a>
-      <a href="/cv/" class="hover:underline">CV</a>
-      <a href="/now/" class="hover:underline">Now</a>
-      <a href="https://bsky.app/profile/revcd.com" class="rounded-full bg-ink px-4 py-1.5 text-paper hover:opacity-80">Follow on Bluesky</a>
+<body>
+<div class="wrap">
+  <header>
+    <a href="/" class="brand">Charlie Revett</a>
+    <nav>
+      <a href="/">About</a>
+      <a href="/cv/">CV</a>
+      <a href="/now/">Now</a>
+      <a href="https://bsky.app/profile/revcd.com" class="btn">Follow on Bluesky</a>
     </nav>
   </header>
-  <main class="pb-20 pt-4">
+  <main>
 {{ block "main" . }}{{ end }}
   </main>
-  <footer class="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-t border-line py-8 text-sm text-soft">
+  <footer>
     <p>&copy; {{ now.Year }} Charlie Revett</p>
-    <p class="flex flex-wrap gap-x-4 gap-y-2">
-      <a href="https://bsky.app/profile/revcd.com" class="hover:underline">Bluesky</a>
-      <a href="https://www.linkedin.com/in/cdrev" class="hover:underline">LinkedIn</a>
-      <a href="https://instagram.com/cdrev" class="hover:underline">Instagram</a>
-      <a href="https://github.com/revett" class="hover:underline">GitHub</a>
-      <a href="https://twitter.com/revcd" class="hover:underline">X</a>
+    <p class="social">
+      <a href="https://bsky.app/profile/revcd.com">Bluesky</a>
+      <a href="https://www.linkedin.com/in/cdrev">LinkedIn</a>
+      <a href="https://instagram.com/cdrev">Instagram</a>
+      <a href="https://github.com/revett">GitHub</a>
+      <a href="https://twitter.com/revcd">X</a>
     </p>
   </footer>
 </div>

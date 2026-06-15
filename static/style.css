@@ -1,0 +1,362 @@
+:root {
+  --ink: #37352f;
+  --soft: #7d7c78;
+  --line: #e9e9e7;
+  --paper: #ffffff;
+  --card: #f9f9f8;
+  --radius: 0.75rem;
+}
+
+@font-face {
+  font-family: "Kumbh Sans";
+  src: url("/fonts/kumbh-sans-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Kumbh Sans";
+  src: url("/fonts/kumbh-sans-500.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Kumbh Sans";
+  src: url("/fonts/kumbh-sans-600.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Kumbh Sans";
+  src: url("/fonts/kumbh-sans-700.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Kumbh Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+}
+
+.wrap {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* Header and footer */
+
+header,
+footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  padding: 2rem 0;
+}
+
+header .brand {
+  font-weight: 700;
+  text-decoration: none;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  font-size: 0.875rem;
+}
+
+nav a {
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+nav .btn {
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 999px;
+  padding: 0.375rem 1rem;
+}
+
+nav .btn:hover {
+  opacity: 0.8;
+  text-decoration: none;
+}
+
+main {
+  padding: 1rem 0 5rem;
+}
+
+footer {
+  border-top: 1px solid var(--line);
+  font-size: 0.875rem;
+  color: var(--soft);
+}
+
+footer p {
+  margin: 0;
+}
+
+footer .social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+
+footer .social a {
+  text-decoration: none;
+}
+
+footer .social a:hover {
+  text-decoration: underline;
+}
+
+/* Home */
+
+.intro {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2rem;
+}
+
+.intro h1 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.intro .portrait {
+  width: 10rem;
+  border-radius: 1rem;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--soft);
+  margin: 3.5rem 0 0.5rem;
+}
+
+.posts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.posts li + li {
+  border-top: 1px solid var(--line);
+}
+
+.posts a {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  text-decoration: none;
+}
+
+.posts img {
+  width: 3.5rem;
+  height: 3.5rem;
+  flex-shrink: 0;
+  border-radius: 0.5rem;
+  object-fit: cover;
+}
+
+.posts .t {
+  font-weight: 500;
+}
+
+.posts a:hover .t {
+  text-decoration: underline;
+}
+
+.posts time {
+  font-size: 0.875rem;
+  color: var(--soft);
+}
+
+.projects {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.projects a {
+  display: block;
+  height: 100%;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1rem;
+  text-decoration: none;
+  transition: background-color 0.15s;
+}
+
+.projects a:hover {
+  background: var(--card);
+}
+
+.projects img {
+  width: 100%;
+  height: 9rem;
+  border-radius: 0.5rem;
+  object-fit: cover;
+}
+
+.projects .t {
+  font-weight: 500;
+  margin: 0.75rem 0 0;
+}
+
+.projects .d {
+  font-size: 0.875rem;
+  color: var(--soft);
+  margin: 0.25rem 0 0;
+}
+
+@media (min-width: 640px) {
+  .intro {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  .intro > div {
+    max-width: 24rem;
+  }
+  .intro .portrait {
+    width: 11rem;
+  }
+  .projects {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Articles: posts, cv, now */
+
+article h1 {
+  font-size: 1.875rem;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.back {
+  font-size: 0.875rem;
+  color: var(--soft);
+}
+
+.byline {
+  font-size: 0.875rem;
+  color: var(--soft);
+  margin-top: 0.75rem;
+}
+
+.cover {
+  width: 100%;
+  border-radius: var(--radius);
+  margin-top: 2rem;
+}
+
+/* Rendered markdown */
+
+.prose {
+  margin-top: 2rem;
+}
+
+.prose > :first-child {
+  margin-top: 0;
+}
+
+.prose h2 {
+  font-size: 1.5rem;
+  margin: 2.5rem 0 1rem;
+}
+
+.prose h3 {
+  font-size: 1.15rem;
+  margin: 2rem 0 0.5rem;
+}
+
+.prose a {
+  text-decoration: underline;
+}
+
+.prose img {
+  border-radius: var(--radius);
+}
+
+.prose blockquote {
+  margin: 1.5rem 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--line);
+  color: var(--soft);
+}
+
+.prose code {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 0.25rem;
+  padding: 0.1em 0.3em;
+  font-size: 0.875em;
+}
+
+.prose pre {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.prose pre code {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-size: 0.875rem;
+}
+
+.prose hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 3rem 0;
+}
+
+/* 404 */
+
+.notfound {
+  padding: 5rem 0;
+  text-align: center;
+}
+
+.notfound h1 {
+  font-size: 1.875rem;
+}
+
+.notfound p {
+  color: var(--soft);
+}

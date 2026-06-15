@@ -1,9 +1,9 @@
 {{ define "main" }}
 <article>
-  <p><a href="/" class="text-sm text-soft hover:underline">&larr; Back</a></p>
-  <h1 class="mt-5 text-3xl font-bold leading-tight">{{ .Title }}</h1>
-  <p class="mt-3 text-sm text-soft">By Charlie Revett &middot; <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time></p>
-  {{ with .Params.cover }}<img src="{{ . }}" alt="" class="mt-8 w-full rounded-xl">{{ end }}
-  <div class="prose mt-8">{{ .Content }}</div>
+  <p><a class="back" href="/">&larr; Back</a></p>
+  <h1>{{ .Title }}</h1>
+  <p class="byline">By Charlie Revett &middot; <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time></p>
+  {{ with .Params.cover }}<img class="cover" src="{{ . }}" alt="">{{ end }}
+  <div class="prose">{{ .Content }}</div>
 </article>
 {{ end }}
