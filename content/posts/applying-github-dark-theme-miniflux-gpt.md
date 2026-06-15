@@ -2,7 +2,7 @@
 title: "Applying the GitHub Dark Theme to Miniflux with GPT"
 description: "Using an OpenAI GPT prompt to restyle a self-hosted Miniflux feed reader with the GitHub dark theme colour palette, without writing any CSS."
 date: 2023-05-06
-updated: 2025-01-31
+lastmod: 2025-01-31
 cover: /images/miniflux-gpt-hero.jpg
 ogImage: /images/covers/miniflux-gpt.png
 ---

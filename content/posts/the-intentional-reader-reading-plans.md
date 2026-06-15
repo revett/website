@@ -2,7 +2,7 @@
 title: "The Intentional Reader — Reading Plans"
 description: "A record of the reading plans I'm currently pursuing, each a curated list of 8 books centred around a theme, from classics to modern classics."
 date: 2024-07-23
-updated: 2025-01-31
+lastmod: 2025-01-31
 cover: /images/reading-plans-hero.jpg
 ogImage: /images/covers/reading-plans.jpg
 ---

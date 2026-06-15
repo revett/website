@@ -2,35 +2,45 @@
 
 Personal website 👋
 
-A static site built with a tiny custom Go generator, Tailwind (standalone binary, no Node), and
-Markdown content. Hosted on GitHub Pages.
+A static site built with [Hugo](https://gohugo.io), styled with Tailwind
+(standalone binary, no Node), content in Markdown. Hosted on GitHub Pages.
 
 ## Layout
 
 ```
-content/    Markdown pages, posts, now editions, images, files
-web/        Templates, CSS, static assets (fonts, favicon, robots.txt)
-generator/  Go CLI; the site package within renders content + web into dist/
+content/    Markdown: home (_index.md), cv, now editions, posts
+layouts/    Hugo templates
+assets/     css/main.css (Tailwind entrypoint)
+static/     fonts, favicon, robots.txt, images, files
+hugo.toml   config
 ```
 
 ## Usage
 
 ```
-make serve    # local dev server on :8080 with live reload
-make build    # render the full site into dist/
-make check    # validate internal links in dist/
-make thumbs   # regenerate the committed post cover thumbnails
+make serve    # dev server on :1313 with live reload
+make build    # compile CSS + render the site into public/
+make css      # compile Tailwind only
+make thumbs   # regenerate the committed post-cover thumbnails (macOS)
 ```
 
-The only dependencies are Go (plus goldmark and yaml.v3) and the Tailwind standalone binary, which
-`make` downloads into `bin/` on first run.
+Requires `hugo` (extended) and `tailwindcss` on `PATH`:
+
+```
+brew install hugo tailwindcss
+```
+
+Hugo can't drive the standalone Tailwind binary (its CSS pipeline expects the
+npm build), so Tailwind runs as its own step and Hugo serves the output at
+`/style.css`. `make serve` runs both with live reload.
 
 ## Content
 
-Pages are Markdown with YAML frontmatter. Posts live in `content/posts/` and their filename is their
-URL slug. Now editions live in `content/now/`; they all render onto `/now`, newest first, and an
-`alias` field emits a redirect stub at an edition's legacy URL.
+Pages are Markdown with YAML frontmatter. Posts live in `content/posts/` and
+their filename is their URL slug, served at the site root. Now editions live in
+`content/now/`; each is marked headless (`build.render: never`) so they all
+render onto `/now` newest-first, and `content/now/_index.md` lists the old
+edition URLs under `aliases` to emit redirect stubs.
 
-The generator also emits `sitemap.xml`, `llms.txt`, a `404.html`, and a raw markdown mirror of every
-page (e.g. `/cv.md`).
-
+Hugo emits `sitemap.xml`, `llms.txt` (a home output format), and a `404.html`
+for free.

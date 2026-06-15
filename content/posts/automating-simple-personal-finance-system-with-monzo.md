@@ -2,7 +2,7 @@
 title: "Automating a Simple Personal Finance System with Monzo (2023)"
 description: "How to build a set and forget personal finance system using Monzo Plus, Pots, Flex, a Marcus savings account, and a Vanguard S&S ISA."
 date: 2023-05-16
-updated: 2025-01-31
+lastmod: 2025-01-31
 cover: /images/monzo-hero.jpg
 ogImage: /images/covers/monzo.jpg
 ---

@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
-@source "../templates";
+@source "../../layouts";
 
 @theme {
   --font-sans: "Kumbh Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;

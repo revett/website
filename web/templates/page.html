@@ -1,7 +1,0 @@
-{{define "page"}}
-<article>
-  <h1 class="text-3xl font-bold">{{.Page.Title}}</h1>
-  {{if .Page.Cover}}<img src="{{.Page.Cover}}" alt="" class="mt-8 w-full rounded-xl">{{end}}
-  <div class="prose mt-8">{{.Page.Body}}</div>
-</article>
-{{end}}

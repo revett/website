@@ -1,0 +1,21 @@
+{{ define "main" }}
+<h1 class="text-3xl font-bold">Now</h1>
+<blockquote class="mt-5 border-l-2 border-line pl-4 text-soft">
+  A now page is an occasionally updated summary of what I'm working on, what I’m up to,
+  and what I'm thinking about. Check out <a href="https://nownownow.com/about" class="underline hover:no-underline">Derek Siver's page</a> for more context.
+</blockquote>
+
+{{ range $i, $e := .Pages.ByDate.Reverse }}
+<section id="{{ $e.File.ContentBaseName }}" class="{{ if $i }}mt-16 border-t border-line pt-14{{ else }}mt-14{{ end }} scroll-mt-8">
+  <h2 class="text-2xl font-bold">{{ $e.Title }}</h2>
+  <p class="mt-2 text-sm text-soft">Covering {{ $e.Params.period }}.</p>
+  {{ with $e.Params.cover }}
+  <figure class="mt-6">
+    <img src="{{ . }}" alt="" {{ if $i }}loading="lazy" {{ end }}class="w-full rounded-xl">
+    {{ with $e.Params.caption }}<figcaption class="mt-2 text-sm text-soft">{{ . }}</figcaption>{{ end }}
+  </figure>
+  {{ end }}
+  <div class="prose mt-6">{{ $e.Content }}</div>
+</section>
+{{ end }}
+{{ end }}

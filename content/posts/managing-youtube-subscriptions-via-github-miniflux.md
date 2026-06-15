@@ -2,7 +2,7 @@
 title: "Managing YouTube subscriptions via GitHub and Miniflux"
 description: "How I moved my YouTube subscriptions to Miniflux, a self-hosted RSS reader, with feeds managed in a YAML file and synced via a GitHub Action."
 date: 2024-07-21
-updated: 2025-01-31
+lastmod: 2025-01-31
 cover: /images/youtube-miniflux-hero.jpg
 ogImage: /images/covers/youtube-miniflux.jpg
 ---

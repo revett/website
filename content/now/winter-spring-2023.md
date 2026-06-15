@@ -2,10 +2,12 @@
 title: "Winter / Spring 2023"
 period: "December 1, 2022 to May 31, 2023"
 date: 2023-05-31
-updated: 2025-01-31
+lastmod: 2025-01-31
 cover: /images/now-winter-spring-2023.jpg
 caption: "Taken in May, when visiting Svalbard on the Rembrandt van Rijn."
-alias: /now/winter-spring-2023
+build:
+  render: never
+  list: local
 ---
 
 - A lot more bouldering with trips to [Albarracín](https://www.instagram.com/p/Cqmn_KntISY) 🇪🇸 and Kent for the [Southern Sandstone](https://www.instagram.com/p/CojeBCWtTYU)

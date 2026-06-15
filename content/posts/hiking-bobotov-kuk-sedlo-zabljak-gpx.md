@@ -2,7 +2,7 @@
 title: "Hiking Bobotov Kuk — Sedlo to Žabljak GPX Routes"
 description: "GPX routes for a day hike in Durmitor National Park, summiting Bobotov Kuk (2523m) from Sedlo and descending to Žabljak via the Black Lake."
 date: 2023-08-26
-updated: 2025-01-31
+lastmod: 2025-01-31
 cover: /images/bobotov-kuk-hero.jpg
 ogImage: /images/covers/bobotov-kuk.jpg
 ---

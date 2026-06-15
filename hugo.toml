@@ -1,0 +1,27 @@
+baseURL = "https://revcd.com/"
+title = "Charlie Revett (@revcd)"
+enableRobotsTXT = false
+disableKinds = ["taxonomy", "term", "rss"]
+
+[permalinks]
+posts = "/:contentbasename/"
+
+[outputs]
+home = ["html", "llms"]
+
+[outputFormats.llms]
+mediaType = "text/plain"
+baseName = "llms"
+isPlainText = true
+
+[markup.goldmark.renderer]
+unsafe = false
+
+# Keep rendered copy byte-faithful to the source: no smart-quote/dash rewriting,
+# no syntax-highlighting markup around fenced code.
+[markup.goldmark.extensions.typographer]
+disable = true
+
+[markup.highlight]
+codeFences = false
+

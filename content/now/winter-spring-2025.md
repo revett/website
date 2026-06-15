@@ -2,11 +2,12 @@
 title: "Winter / Spring 2025"
 period: "December 1, 2024 to May 31, 2025"
 date: 2025-05-31
-updated: 2025-01-31
+lastmod: 2025-01-31
 cover: /images/now-hero.jpg
+build:
+  render: never
+  list: local
 ---
-
-<!-- TODO: Write missing now editions -->
 
 After six months of freelancing following my time at [incident.io](http://incident.io/), I’m off on a six month sabbatical. Freelancing brought a lot of freedom — the autonomy to drive pace within a small team, especially in the fast-paced world of crypto. It was a refreshing change, but it’s clear that it’s not my long-term path.
 

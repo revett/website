@@ -2,10 +2,12 @@
 title: "Summer / Autumn 2022"
 period: "June 1, 2022 to November 30, 2022"
 date: 2022-11-30
-updated: 2025-01-31
+lastmod: 2025-01-31
 cover: /images/now-summer-autumn-2022.jpg
 caption: "Taken in August, at Oldfields near Bakewell."
-alias: /now/summer-autumn-2022
+build:
+  render: never
+  list: local
 ---
 
 - Completing the renovation of my apartment in Bermondsey

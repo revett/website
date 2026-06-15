@@ -1,14 +1,12 @@
 ---
 title: "CV"
 description: "The CV of Charlie Revett, a full-stack software engineer and technical leader based in London, with expertise in Go, React, and AWS."
-updated: 2025-03-10
+lastmod: 2025-03-10
 cover: /images/cv-hero.jpg
 ogImage: /images/covers/cv.jpg
 ---
 
 > ℹ️ This is the CV for **Charlie Revett**, it was last updated in January 2025.
-
-<!-- TODO: Refresh CV -->
 
 Hi, I’m Charlie — a **full-stack software engineer** and **technical leader** with 12 years of experience turning big ideas into scalable, user-centred products.
 
@@ -17,8 +15,6 @@ With expertise in Go, React, and AWS, I enjoy building products at speed that ar
 I thrive on leading projects from **inception to launch**, combining hands-on development with dependable leadership to deliver thoughtful, polished products for customers.
 
 After concluding a rewarding chapter at **incident.io**, I’m taking a six-month sabbatical to recharge. I’m **open to new opportunities in Q2 2025**.
-
-<!-- TODO: Rewrite intro -->
 
 Reach me at **`hi@revdex.fastmail.com`**.
 

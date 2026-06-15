@@ -1,23 +1,25 @@
-{{define "base"}}<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{.Title}}</title>
-<meta name="description" content="{{.Description}}">
-<link rel="canonical" href="{{.Canonical}}">
+{{ $title := printf "%s · %s" .Title site.Title }}
+{{ if .IsHome }}{{ $title = printf "%s · Software Engineer" site.Title }}{{ end }}
+<title>{{ $title }}</title>
+<meta name="description" content="{{ .Description }}">
+<link rel="canonical" href="{{ .Permalink }}">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preload" href="/fonts/kumbh-sans-regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/kumbh-sans-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/style.css">
-<meta property="og:type" content="{{.OGType}}">
-<meta property="og:title" content="{{.Title}}">
-<meta property="og:description" content="{{.Description}}">
-<meta property="og:url" content="{{.Canonical}}">
-{{if .OGImage}}<meta property="og:image" content="{{.OGImage}}">
+
+<meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}">
+<meta property="og:title" content="{{ $title }}">
+<meta property="og:description" content="{{ .Description }}">
+<meta property="og:url" content="{{ .Permalink }}">
+{{ with .Params.ogImage }}<meta property="og:image" content="{{ . | absURL }}">
 <meta name="twitter:card" content="summary_large_image">
-{{end}}{{if .Dev}}<script>new EventSource("/__reload").onmessage = () => location.reload();</script>
-{{end}}</head>
+{{ end }}</head>
 <body class="bg-paper font-sans text-ink antialiased">
 <div class="mx-auto max-w-2xl px-5">
   <header class="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 py-8">
@@ -30,10 +32,10 @@
     </nav>
   </header>
   <main class="pb-20 pt-4">
-{{.Content}}
+{{ block "main" . }}{{ end }}
   </main>
   <footer class="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-t border-line py-8 text-sm text-soft">
-    <p>&copy; {{.Year}} Charlie Revett</p>
+    <p>&copy; {{ now.Year }} Charlie Revett</p>
     <p class="flex flex-wrap gap-x-4 gap-y-2">
       <a href="https://bsky.app/profile/revcd.com" class="hover:underline">Bluesky</a>
       <a href="https://www.linkedin.com/in/cdrev" class="hover:underline">LinkedIn</a>
@@ -44,4 +46,4 @@
   </footer>
 </div>
 </body>
-</html>{{end}}
+</html>

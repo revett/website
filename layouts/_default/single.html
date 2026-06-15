@@ -1,0 +1,7 @@
+{{ define "main" }}
+<article>
+  <h1 class="text-3xl font-bold">{{ .Title }}</h1>
+  {{ with .Params.cover }}<img src="{{ . }}" alt="" class="mt-8 w-full rounded-xl">{{ end }}
+  <div class="prose mt-8">{{ .Content }}</div>
+</article>
+{{ end }}

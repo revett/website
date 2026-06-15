@@ -2,10 +2,12 @@
 title: "Summer / Autumn 2024"
 period: "June 1, 2024 to November 30, 2024"
 date: 2024-11-30
-updated: 2025-01-31
+lastmod: 2025-01-31
 cover: /images/now-summer-autumn-2024.jpg
 caption: "Taken in October, on one of many trips to Brussels."
-alias: /now/summer-autumn-2024
+build:
+  render: never
+  list: local
 ---
 
 💦🔥 After two fulfilling years at [incident.io](http://incident.io/), I've shifted my focus to freelance while building my own digital products. Check out [@8thpark](https://8thpark.com) for product releases and [@cdrev](https://www.instagram.com/cdrev/) for travel updates.
