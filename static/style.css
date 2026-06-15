@@ -173,18 +173,11 @@ footer .social a:hover {
 
 .posts a {
   display: flex;
-  align-items: center;
+  justify-content: space-between;
+  align-items: baseline;
   gap: 1rem;
-  padding: 1rem 0;
+  padding: 0.75rem 0;
   text-decoration: none;
-}
-
-.posts img {
-  width: 3.5rem;
-  height: 3.5rem;
-  flex-shrink: 0;
-  border-radius: 0.5rem;
-  object-fit: cover;
 }
 
 .posts .t {
@@ -198,6 +191,7 @@ footer .social a:hover {
 .posts time {
   font-size: 0.875rem;
   color: var(--soft);
+  white-space: nowrap;
 }
 
 .projects {

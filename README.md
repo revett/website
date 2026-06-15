@@ -9,10 +9,15 @@ hand-written CSS, no JavaScript. Hosted on GitHub Pages.
 
 ```
 content/    Markdown: home (_index.md), cv, now, posts
-layouts/    Hugo templates
-static/     style.css, fonts, favicon, robots.txt, images, files
+layouts/    Hugo templates + image render hook
+assets/     images (resized to WebP at build time)
+static/     style.css, fonts, favicon, robots.txt, files
 hugo.toml   config
 ```
+
+Images live in `assets/` and are processed at build time: the `image` partial
+and the markdown image render hook emit right-sized WebP (social cards stay
+JPEG). The masters stay in the repo; only the processed variants ship.
 
 ## Usage
 

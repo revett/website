@@ -4,7 +4,7 @@
     <h1>{{ .Title }}</h1>
     <div class="prose">{{ .Content }}</div>
   </div>
-  <img class="portrait" src="{{ .Params.portrait }}" alt="Charlie Revett">
+  {{ partial "image.html" (dict "src" .Params.portrait "max" 360 "class" "portrait" "alt" "Charlie Revett") }}
 </section>
 
 <h2 class="label">Recent Posts</h2>
@@ -12,11 +12,8 @@
   {{ range (where site.RegularPages "Section" "posts").ByDate.Reverse }}
   <li>
     <a href="{{ .RelPermalink }}">
-      <img src="{{ .Params.cover }}" alt="" loading="lazy" width="56" height="56">
-      <span>
-        <span class="t">{{ .Title }}</span><br>
-        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
-      </span>
+      <span class="t">{{ .Title }}</span>
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
     </a>
   </li>
   {{ end }}
@@ -27,7 +24,7 @@
   {{ range .Params.projects }}
   <li>
     <a href="{{ .url }}">
-      <img src="{{ .image }}" alt="" loading="lazy">
+      {{ partial "image.html" (dict "src" .image "max" 640 "lazy" true "alt" .name) }}
       <p class="t">{{ .name }}</p>
       <p class="d">{{ .description }}</p>
     </a>
