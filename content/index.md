@@ -3,7 +3,7 @@ title: Charlie Revett
 description: Personal site of Charlie Revett, a software engineer based in London.
 ---
 
-I am a product engineer based in London. Where I lead the Agents team at
+I am a product engineer based in London, where I lead the Agents team at
 [Plain](https://plain.com), one of two AI teams at the company. Currently we are focused on building
 our customer support agent, called Ari.
 
