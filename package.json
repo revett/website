@@ -1,0 +1,20 @@
+{
+  "name": "website",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "build": "node build.ts",
+    "dev": "node build.ts dev"
+  },
+  "dependencies": {
+    "marked": "^16.4.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "@types/node": "^24.10.9",
+    "tailwindcss": "^4.3.3"
+  }
+}

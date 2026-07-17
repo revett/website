@@ -2,42 +2,40 @@
 
 Personal website 👋
 
-A static site built with [Hugo](https://gohugo.io). Content in Markdown,
-hand-written CSS, no JavaScript. Hosted on GitHub Pages.
+Markdown pages built into a static site by `build.ts`, a ~180 line generator
+with no conventions: read it top to bottom and you know everything. Run
+directly by Node (24+), no build step. Hosted on GitHub Pages; pushing to
+`main` deploys.
 
 ## Layout
 
 ```
-content/    Markdown: home (_index.md), cv, now, posts
-layouts/    Hugo templates + image render hook
-assets/     images (resized to WebP at build time)
-static/     style.css, fonts, favicon, robots.txt, files
-hugo.toml   config
+content/        Markdown pages (index.md is the home page)
+template.html   the HTML shell every page is rendered into
+style.css       Tailwind input, compiled to public/style.css
+static/         favicon, robots.txt (copied verbatim)
+build.ts        the generator
 ```
-
-Images live in `assets/` and are processed at build time: the `image` partial
-and the markdown image render hook emit right-sized WebP (social cards stay
-JPEG). The masters stay in the repo; only the processed variants ship.
 
 ## Usage
 
 ```
-hugo server   # dev server on :1313 with live reload
-hugo          # render the site into public/
-```
+npm install
 
-The only dependency is Hugo:
-
-```
-brew install hugo
+npm run build   # build into public/
+npm run dev     # build, serve on http://localhost:8080 (override with
+                # PORT=n), and rebuild when source files change
 ```
 
 ## Content
 
-Pages are Markdown with YAML frontmatter. Posts live in `content/posts/` and
-their filename is their URL slug, served at the site root (`/:contentbasename/`).
-`content/now.md` is a single page with one section per edition, newest first;
-its `aliases` emit redirect stubs for the old per-edition URLs.
+New page: create `content/foo.md` with `title` and `description` frontmatter,
+it renders at `/foo/`.
 
-Hugo emits `sitemap.xml`, `llms.txt` (a home output format), and a `404.html`
-for free.
+Each page also gets a raw markdown twin (`/foo/index.md`, linked via
+`<link rel="alternate">`), and the build emits `/llms.txt` (an index of all
+pages for machines) and `/sitemap.xml`. All generated, never edited.
+
+The generator's scope is capped on purpose: markdown in, HTML + twins out,
+copy static. No image pipeline, no shortcodes, no aliases. If it starts
+needing features, use a real static site generator instead of growing this.

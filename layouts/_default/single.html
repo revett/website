@@ -1,7 +1,0 @@
-{{ define "main" }}
-<article>
-  <h1>{{ .Title }}</h1>
-  {{ with .Params.cover }}{{ partial "image.html" (dict "src" . "max" 1400 "class" "cover") }}{{ end }}
-  <div class="prose">{{ .Content }}</div>
-</article>
-{{ end }}
