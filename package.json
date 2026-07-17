@@ -10,7 +10,7 @@
 		"dev": "node build.ts dev"
 	},
 	"dependencies": {
-		"marked": "16.x.x"
+		"marked": "18.x.x"
 	},
 	"devDependencies": {
 		"@tailwindcss/cli": "4.x.x",
