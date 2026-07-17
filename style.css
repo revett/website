@@ -1,16 +1,16 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mende+Kikakui&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 :root {
   color-scheme: light;
 }
 
 @theme {
-  --font-noto: "Noto Sans Mende Kikakui", sans-serif;
+  --font-custom: "Space Mono", monospace;
 }
 
 * {
-  @apply text-stone-600 text-[15px] text-shadow-xs text-shadow-stone-100 font-noto;
+  @apply text-stone-600 text-[13px] text-shadow-xs text-shadow-stone-100 font-custom;
 }
 
 body {

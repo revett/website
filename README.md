@@ -20,6 +20,8 @@ build.ts        Generator
 - https://paco.me
 - https://raphaelsalaja.com
 - https://benji.org
+- https://nat.org
+- https://gregbrockman.com
 
 ## Development
 
