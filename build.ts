@@ -15,7 +15,14 @@ import path from "node:path";
 import { marked } from "marked";
 
 const SITE_TITLE = "Charlie Revett";
-const BASE_URL = "https://revcd.com";
+
+// Full origin the site is served from, no trailing slash. Override at build
+// time with SITE_URL, e.g. while living at a GitHub Pages project URL
+// (https://revett.github.io/website) before a custom domain is wired up.
+const BASE_URL = (process.env.SITE_URL ?? "https://revcd.com").replace(/\/$/, "");
+// The path portion of BASE_URL ("" for a root domain, "/website" for a
+// project page), used to prefix root-relative asset links.
+const BASE_PATH = new URL(BASE_URL).pathname.replace(/\/$/, "");
 
 type Page = {
   slug: string; // "" for the home page
@@ -75,6 +82,7 @@ function render(template: string, page: Page): string {
     .replaceAll("{{title}}", escapeHTML(page.title))
     .replaceAll("{{description}}", escapeHTML(page.description))
     .replaceAll("{{url}}", pageURL(page))
+    .replaceAll("{{base}}", BASE_PATH)
     .replaceAll("{{body}}", page.body);
 }
 

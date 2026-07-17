@@ -1,41 +1,34 @@
-# Website (revcd.com)
+# Website
 
-Personal website 👋
+Repo for my personal website, which really is just a bunch of Markdown pages that I hand write,
+which are then built into a static site for GitHub pages to host by `build.ts`, a ~200 line
+generator the Claude manages.
 
-Markdown pages built into a static site by `build.ts`, a ~180 line generator
-with no conventions: read it top to bottom and you know everything. Run
-directly by Node (24+), no build step. Hosted on GitHub Pages; pushing to
-`main` deploys.
-
-## Layout
-
-```
-content/        Markdown pages (index.md is the home page)
-template.html   the HTML shell every page is rendered into
-style.css       Tailwind input, compiled to public/style.css
-static/         favicon, robots.txt (copied verbatim)
-build.ts        the generator
+```plaintext
+content/        Markdown pages
+template.html   HTML shell
+style.css       Tailwind input → compiled to public/style.css
+static/         favicon, robots.txt etc
+build.ts        Generator
 ```
 
-## Usage
+## Inspiration
 
+- https://deadsimplesites.com
+- https://emilkowal.ski
+- https://shud.in
+- https://paco.me
+- https://raphaelsalaja.com
+- https://benji.org
+
+## Development
+
+```bash
+npm i
+npm run dev
 ```
-npm install
 
-npm run build   # build into public/
-npm run dev     # build, serve on http://localhost:8080 (override with
-                # PORT=n), and rebuild when source files change
-```
+## Acknowledgements
 
-## Content
-
-New page: create `content/foo.md` with `title` and `description` frontmatter,
-it renders at `/foo/`.
-
-Each page also gets a raw markdown twin (`/foo/index.md`, linked via
-`<link rel="alternate">`), and the build emits `/llms.txt` (an index of all
-pages for machines) and `/sitemap.xml`. All generated, never edited.
-
-The generator's scope is capped on purpose: markdown in, HTML + twins out,
-copy static. No image pipeline, no shortcodes, no aliases. If it starts
-needing features, use a real static site generator instead of growing this.
+- Favicon is the `:mountain:` emoji from
+  [Samsung One UI 8.5](https://emojipedia.org/samsung/one-ui-8.5) set
