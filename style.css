@@ -49,6 +49,14 @@ footer {
   @apply mt-4 text-sm text-stone-400 text-center;
 }
 
+footer a {
+  @apply text-stone-400 text-sm;
+}
+
+footer a:hover {
+  @apply text-stone-950;
+}
+
 .banner {
   @apply w-full shadow-xl rounded-lg mt-6;
 }

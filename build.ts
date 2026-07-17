@@ -15,6 +15,20 @@ import path from "node:path";
 import { marked } from "marked";
 
 const SITE_TITLE = "Charlie Revett";
+const BANNER_ALT = "Serene lake with a stilted house, green hills, and misty mountains";
+const CV = `I am not actively looking to change role, but am always happy to talk to folks building interesting
+products and incredible teams.
+
+I'm interested in applied AI roles within small, high agency, high impact teams, with a genuine
+product engineering culture, with founders that have done it before, and that are remote friendly,
+requiring max 1/day per week in London (expensed).`;
+
+const PORT = Number(process.env.PORT ?? 8080);
+// In dev mode, links should point at the server you're actually looking at,
+// unless SITE_URL was set explicitly (e.g. to rehearse a deploy target).
+if (process.argv[2] === "dev" && !process.env.SITE_URL) {
+  process.env.SITE_URL = `http://localhost:${PORT}`;
+}
 
 // Full origin the site is served from, no trailing slash. Override at build
 // time with SITE_URL, e.g. while living at a GitHub Pages project URL
@@ -89,13 +103,21 @@ function render(template: string, page: Page): string {
 function llmsTxt(pages: Page[]): string {
   const home = pages.find((page) => page.slug === "");
   if (!home) throw new Error("content/index.md is required");
-  let out = `# ${SITE_TITLE}\n\n> ${home.description}\n\n`;
-  out += `- [Home](${pageURL(home)}index.md)\n`;
+  const banner = `![${BANNER_ALT}](${BASE_URL}/banner.png)`;
+  const links = [`- [Home](${pageURL(home)}index.md)`];
   for (const page of pages) {
     if (page.slug === "") continue;
-    out += `- [${page.title}](${pageURL(page)}index.md): ${page.description}\n`;
+    links.push(`- [${page.title}](${pageURL(page)}index.md): ${page.description}`);
   }
-  return out;
+  return (
+    [
+      `# ${SITE_TITLE}`,
+      home.markdown.trimEnd(),
+      banner,
+      `## CV\n\n${CV}`,
+      `## Pages\n\n${links.join("\n")}`,
+    ].join("\n\n") + "\n"
+  );
 }
 
 function sitemapXML(pages: Page[]): string {
@@ -160,7 +182,6 @@ function watch(): void {
 }
 
 function serve(): void {
-  const port = Number(process.env.PORT ?? 8080);
   const types: Record<string, string> = {
     ".html": "text/html",
     ".css": "text/css",
@@ -192,7 +213,7 @@ function serve(): void {
       });
       res.end(fs.readFileSync(file));
     })
-    .listen(port, () => console.log(`serving on http://localhost:${port}`));
+    .listen(PORT, () => console.log(`serving on http://localhost:${PORT}`));
 }
 
 build();
