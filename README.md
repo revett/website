@@ -8,7 +8,7 @@ generator the Claude manages.
 content/        Markdown pages
 template.html   HTML shell
 style.css       Tailwind input → compiled to public/style.css
-static/         favicon, robots.txt etc
+static/         favicon, banner etc; robots.txt is generated, not here
 build.ts        Generator
 ```
 

@@ -1,8 +1,8 @@
 // Builds the site. Every markdown file in content/ becomes a page:
 // content/index.md is the home page, content/foo.md renders at /foo/.
-// Each page gets a raw markdown twin (index.md) next to its index.html,
-// and the site gets /llms.txt and /sitemap.xml. static/ is copied verbatim,
-// and style.css is compiled by Tailwind into public/style.css.
+// Each page gets a raw markdown twin (index.md) next to its index.html, and
+// the site gets /llms.txt, /sitemap.xml, and /robots.txt. static/ is copied
+// verbatim, and style.css is compiled by Tailwind into public/style.css.
 //
 //   node build.ts      build into public/
 //   node build.ts dev  build, serve public/ on http://localhost:1234,
@@ -137,21 +137,37 @@ function llmsTxt(pages: Page[]): string {
   );
 }
 
+function sitemapURL(loc: string, priority: string, modified: string | undefined): string {
+  const fields = [`    <loc>${loc}</loc>`];
+  if (modified) fields.push(`    <lastmod>${modified}</lastmod>`);
+  fields.push("    <changefreq>monthly</changefreq>");
+  fields.push(`    <priority>${priority}</priority>`);
+  return `  <url>\n${fields.join("\n")}\n  </url>`;
+}
+
 function sitemapXML(pages: Page[]): string {
-  const urls = pages
-    .map((page) => {
-      const modified = lastmod(page.file);
-      const fields = [`    <loc>${pageURL(page)}</loc>`];
-      if (modified) fields.push(`    <lastmod>${modified}</lastmod>`);
-      fields.push("    <changefreq>monthly</changefreq>");
-      fields.push(`    <priority>${page.slug === "" ? "1.0" : "0.5"}</priority>`);
-      return `  <url>\n${fields.join("\n")}\n  </url>`;
-    })
-    .join("\n");
+  const entries: string[] = [];
+  let latest: string | undefined;
+  for (const page of pages) {
+    const modified = lastmod(page.file);
+    if (modified && (!latest || modified > latest)) latest = modified;
+    entries.push(sitemapURL(pageURL(page), page.slug === "" ? "1.0" : "0.5", modified));
+    entries.push(sitemapURL(`${pageURL(page)}index.md`, "0.3", modified));
+  }
+  entries.push(sitemapURL(`${BASE_URL}/llms.txt`, "0.3", latest));
+
   return `<?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls}
+${entries.join("\n")}
 </urlset>
+`;
+}
+
+function robotsTxt(): string {
+  return `User-agent: *
+Allow: /
+
+Sitemap: ${BASE_URL}/sitemap.xml
 `;
 }
 
@@ -178,6 +194,7 @@ function build(): void {
 
   fs.writeFileSync("public/llms.txt", llmsTxt(pages));
   fs.writeFileSync("public/sitemap.xml", sitemapXML(pages));
+  fs.writeFileSync("public/robots.txt", robotsTxt());
 
   execFileSync("node_modules/.bin/tailwindcss", [
     "--input",
