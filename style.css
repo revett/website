@@ -40,11 +40,11 @@
 }
 
 * {
-  @apply text-stone-600 text-[13px] text-shadow-xs text-shadow-stone-100 font-custom;
+  @apply text-stone-600 text-shadow-xs text-shadow-stone-100 font-custom;
 }
 
 body {
-  @apply mx-auto max-w-3xl bg-stone-100 px-6 py-20 leading-relaxed antialiased;
+  @apply mx-auto max-w-3xl bg-stone-100 px-6 py-20 text-[0.875rem] leading-relaxed antialiased;
 }
 
 h1, h2, h3 {
