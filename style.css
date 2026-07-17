@@ -1,5 +1,35 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+/* Space Mono, self hosted (latin subset). Relative URLs resolve against this
+   stylesheet, so they hold at both the root domain and a project-page base. */
+@font-face {
+  font-family: "Space Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/space-mono-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Space Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/space-mono-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Space Mono";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/space-mono-400-italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Space Mono";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/space-mono-700-italic.woff2") format("woff2");
+}
 
 :root {
   color-scheme: light;
@@ -14,7 +44,7 @@
 }
 
 body {
-  @apply mx-auto max-w-2xl bg-stone-100 px-6 py-20 leading-relaxed antialiased;
+  @apply mx-auto max-w-3xl bg-stone-100 px-6 py-20 leading-relaxed antialiased;
 }
 
 h1, h2, h3 {
