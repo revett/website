@@ -223,7 +223,7 @@ function build(): void {
     fs.writeFileSync(path.join(dir, "index.html"), render(template, page));
     fs.writeFileSync(
       path.join(dir, "index.md"),
-      `# ${page.title}\n\n${page.markdown}`,
+      `> See: ${BASE_URL}/llms.txt\n\n# ${page.title}\n\n${page.markdown}`,
     );
   }
 
