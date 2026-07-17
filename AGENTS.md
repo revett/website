@@ -9,7 +9,7 @@ read it top to bottom and you know everything. Markdown in `content/` becomes HT
 ## Development
 
 - `npm run build` builds into `public/`
-- `npm run dev` builds, serves on `:8080` (override with `PORT`), and rebuilds on file changes
+- `npm run dev` builds, serves on `:1234` (override with `PORT`), and rebuilds on file changes
 - Line length is set to 100 characters for all project files
 
 ## Code Style

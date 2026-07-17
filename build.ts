@@ -16,8 +16,8 @@ import { marked } from "marked";
 
 const SITE_TITLE = "Charlie Revett";
 const BANNER_ALT = "Serene lake with a stilted house, green hills, and misty mountains";
-const CV = `I am not actively looking to change role, but am always happy to talk to folks building interesting
-products and incredible teams.
+const CV = `I am not actively looking to change role, but am always happy to talk to folks building
+interesting products and incredible teams.
 
 I'm interested in applied AI roles within small, high agency, high impact teams, with a genuine
 product engineering culture, with founders that have done it before, and that are remote friendly,
@@ -49,7 +49,10 @@ type Page = {
 };
 
 function pageURL(page: Page): string {
-  return page.slug === "" ? `${BASE_URL}/` : `${BASE_URL}/${page.slug}/`;
+  if (page.slug === "") {
+    return `${BASE_URL}/`;
+  }
+  return `${BASE_URL}/${page.slug}/`;
 }
 
 // The date content/foo.md was last committed, YYYY-MM-DD, or undefined if
@@ -61,7 +64,10 @@ function lastmod(file: string): string | undefined {
       ["log", "-1", "--format=%cd", "--date=short", "--", file],
       { encoding: "utf8" },
     ).trim();
-    return date === "" ? undefined : date;
+    if (date === "") {
+      return undefined;
+    }
+    return date;
   } catch {
     return undefined;
   }
@@ -71,23 +77,35 @@ function lastmod(file: string): string | undefined {
 // description lines, then the markdown body.
 function parse(file: string): Page {
   const raw = fs.readFileSync(file, "utf8");
-  if (!raw.startsWith("---\n")) throw new Error(`${file}: missing frontmatter`);
+  if (!raw.startsWith("---\n")) {
+    throw new Error(`${file}: missing frontmatter`);
+  }
   const end = raw.indexOf("\n---\n");
-  if (end === -1) throw new Error(`${file}: unterminated frontmatter`);
+  if (end === -1) {
+    throw new Error(`${file}: unterminated frontmatter`);
+  }
   const front = raw.slice(4, end);
   const markdown = raw.slice(end + 5).replace(/^\n+/, "");
 
   let slug = path.basename(file, ".md");
-  if (slug === "index") slug = "";
+  if (slug === "index") {
+    slug = "";
+  }
   let title = "";
   let description = "";
   for (const line of front.split("\n")) {
     const colon = line.indexOf(":");
-    if (colon === -1) continue;
+    if (colon === -1) {
+      continue;
+    }
     const key = line.slice(0, colon).trim();
     const value = line.slice(colon + 1).trim();
-    if (key === "title") title = value;
-    if (key === "description") description = value;
+    if (key === "title") {
+      title = value;
+    }
+    if (key === "description") {
+      description = value;
+    }
   }
   if (!title || !description) {
     throw new Error(`${file}: frontmatter needs title and description`);
@@ -106,8 +124,10 @@ function escapeHTML(text: string): string {
 }
 
 function render(template: string, page: Page): string {
-  const pageTitle =
-    page.slug === "" ? SITE_TITLE : `${page.title} · ${SITE_TITLE}`;
+  let pageTitle = `${page.title} · ${SITE_TITLE}`;
+  if (page.slug === "") {
+    pageTitle = SITE_TITLE;
+  }
   return template
     .replaceAll("{{pageTitle}}", escapeHTML(pageTitle))
     .replaceAll("{{title}}", escapeHTML(page.title))
@@ -119,11 +139,15 @@ function render(template: string, page: Page): string {
 
 function llmsTxt(pages: Page[]): string {
   const home = pages.find((page) => page.slug === "");
-  if (!home) throw new Error("content/index.md is required");
+  if (!home) {
+    throw new Error("content/index.md is required");
+  }
   const banner = `![${BANNER_ALT}](${BASE_URL}/banner.png)`;
   const links = [`- [Home](${pageURL(home)}index.md)`];
   for (const page of pages) {
-    if (page.slug === "") continue;
+    if (page.slug === "") {
+      continue;
+    }
     links.push(`- [${page.title}](${pageURL(page)}index.md): ${page.description}`);
   }
   return (
@@ -139,7 +163,9 @@ function llmsTxt(pages: Page[]): string {
 
 function sitemapURL(loc: string, priority: string, modified: string | undefined): string {
   const fields = [`    <loc>${loc}</loc>`];
-  if (modified) fields.push(`    <lastmod>${modified}</lastmod>`);
+  if (modified) {
+    fields.push(`    <lastmod>${modified}</lastmod>`);
+  }
   fields.push("    <changefreq>monthly</changefreq>");
   fields.push(`    <priority>${priority}</priority>`);
   return `  <url>\n${fields.join("\n")}\n  </url>`;
@@ -150,8 +176,14 @@ function sitemapXML(pages: Page[]): string {
   let latest: string | undefined;
   for (const page of pages) {
     const modified = lastmod(page.file);
-    if (modified && (!latest || modified > latest)) latest = modified;
-    entries.push(sitemapURL(pageURL(page), page.slug === "" ? "1.0" : "0.5", modified));
+    if (modified && (!latest || modified > latest)) {
+      latest = modified;
+    }
+    let priority = "0.5";
+    if (page.slug === "") {
+      priority = "1.0";
+    }
+    entries.push(sitemapURL(pageURL(page), priority, modified));
     entries.push(sitemapURL(`${pageURL(page)}index.md`, "0.3", modified));
   }
   entries.push(sitemapURL(`${BASE_URL}/llms.txt`, "0.3", latest));
@@ -183,7 +215,10 @@ function build(): void {
     .map((file) => parse(path.join("content", file)));
 
   for (const page of pages) {
-    const dir = page.slug === "" ? "public" : path.join("public", page.slug);
+    let dir = path.join("public", page.slug);
+    if (page.slug === "") {
+      dir = "public";
+    }
     fs.mkdirSync(dir, { recursive: true });
     fs.writeFileSync(path.join(dir, "index.html"), render(template, page));
     fs.writeFileSync(
