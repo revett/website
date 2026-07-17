@@ -5,7 +5,7 @@
 // and style.css is compiled by Tailwind into public/style.css.
 //
 //   node build.ts      build into public/
-//   node build.ts dev  build, serve public/ on http://localhost:8080,
+//   node build.ts dev  build, serve public/ on http://localhost:1234,
 //                      and rebuild when source files change
 
 import { execFileSync } from "node:child_process";
@@ -23,9 +23,10 @@ I'm interested in applied AI roles within small, high agency, high impact teams,
 product engineering culture, with founders that have done it before, and that are remote friendly,
 requiring max 1/day per week in London (expensed).`;
 
-const PORT = Number(process.env.PORT ?? 8080);
-// In dev mode, links should point at the server you're actually looking at,
-// unless SITE_URL was set explicitly (e.g. to rehearse a deploy target).
+const PORT = Number(process.env.PORT ?? 1234);
+// In dev mode, every generated link (pages, llms.txt, sitemap) points at the
+// server you're actually looking at, unless SITE_URL was set explicitly
+// (e.g. to rehearse a deploy target).
 if (process.argv[2] === "dev" && !process.env.SITE_URL) {
   process.env.SITE_URL = `http://localhost:${PORT}`;
 }
@@ -40,6 +41,7 @@ const BASE_PATH = new URL(BASE_URL).pathname.replace(/\/$/, "");
 
 type Page = {
   slug: string; // "" for the home page
+  file: string; // path to the source content file
   title: string;
   description: string;
   markdown: string; // raw markdown body, frontmatter stripped
@@ -48,6 +50,21 @@ type Page = {
 
 function pageURL(page: Page): string {
   return page.slug === "" ? `${BASE_URL}/` : `${BASE_URL}/${page.slug}/`;
+}
+
+// The date content/foo.md was last committed, YYYY-MM-DD, or undefined if
+// it isn't tracked yet (a new, uncommitted page).
+function lastmod(file: string): string | undefined {
+  try {
+    const date = execFileSync(
+      "git",
+      ["log", "-1", "--format=%cd", "--date=short", "--", file],
+      { encoding: "utf8" },
+    ).trim();
+    return date === "" ? undefined : date;
+  } catch {
+    return undefined;
+  }
 }
 
 // A content file is a "---" delimited frontmatter block with title and
@@ -77,7 +94,7 @@ function parse(file: string): Page {
   }
 
   const body = marked.parse(markdown) as string;
-  return { slug, title, description, markdown, body };
+  return { slug, file, title, description, markdown, body };
 }
 
 function escapeHTML(text: string): string {
@@ -122,7 +139,14 @@ function llmsTxt(pages: Page[]): string {
 
 function sitemapXML(pages: Page[]): string {
   const urls = pages
-    .map((page) => `  <url><loc>${pageURL(page)}</loc></url>`)
+    .map((page) => {
+      const modified = lastmod(page.file);
+      const fields = [`    <loc>${pageURL(page)}</loc>`];
+      if (modified) fields.push(`    <lastmod>${modified}</lastmod>`);
+      fields.push("    <changefreq>monthly</changefreq>");
+      fields.push(`    <priority>${page.slug === "" ? "1.0" : "0.5"}</priority>`);
+      return `  <url>\n${fields.join("\n")}\n  </url>`;
+    })
     .join("\n");
   return `<?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
