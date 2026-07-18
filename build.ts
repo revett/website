@@ -142,7 +142,7 @@ function llmsTxt(pages: Page[]): string {
   if (!home) {
     throw new Error("content/index.md is required");
   }
-  const banner = `![${BANNER_ALT}](${BASE_URL}/banner.png)`;
+  const banner = `![${BANNER_ALT}](${BASE_URL}/banner.webp)`;
   const links = [`- [Home](${pageURL(home)}index.md)`];
   for (const page of pages) {
     if (page.slug === "") {
@@ -172,21 +172,16 @@ function sitemapURL(loc: string, priority: string, modified: string | undefined)
 }
 
 function sitemapXML(pages: Page[]): string {
+  // Only the canonical HTML pages belong here. The raw markdown twins and
+  // llms.txt are reachable via rel=alternate, not indexable duplicates.
   const entries: string[] = [];
-  let latest: string | undefined;
   for (const page of pages) {
-    const modified = lastmod(page.file);
-    if (modified && (!latest || modified > latest)) {
-      latest = modified;
-    }
     let priority = "0.5";
     if (page.slug === "") {
       priority = "1.0";
     }
-    entries.push(sitemapURL(pageURL(page), priority, modified));
-    entries.push(sitemapURL(`${pageURL(page)}index.md`, "0.3", modified));
+    entries.push(sitemapURL(pageURL(page), priority, lastmod(page.file)));
   }
-  entries.push(sitemapURL(`${BASE_URL}/llms.txt`, "0.3", latest));
 
   return `<?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

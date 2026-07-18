@@ -76,11 +76,11 @@ ol {
 }
 
 footer {
-  @apply mt-4 text-[0.8rem] text-stone-400 text-center;
+  @apply mt-4 text-[0.8rem] text-stone-500 text-center;
 }
 
 footer a {
-  @apply text-stone-400;
+  @apply text-stone-500;
 }
 
 footer a:hover {
