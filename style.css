@@ -48,7 +48,7 @@ body {
 }
 
 h1, h2, h3 {
-  @apply mb-4 text-base font-semibold text-stone-800;
+  @apply mb-4 font-semibold text-stone-800;
 }
 
 p,
@@ -76,11 +76,11 @@ ol {
 }
 
 footer {
-  @apply mt-4 text-sm text-stone-400 text-center;
+  @apply mt-4 text-[0.8rem] text-stone-400 text-center;
 }
 
 footer a {
-  @apply text-stone-400 text-sm;
+  @apply text-stone-400;
 }
 
 footer a:hover {
