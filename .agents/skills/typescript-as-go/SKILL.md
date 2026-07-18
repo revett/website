@@ -6,7 +6,7 @@ compatibility: Designed for Claude Code (or similar products)
 metadata:
   author: revett
   repo: https://github.com/revett/typescript-as-go
-  version: 0.1.0
+  version: 0.2.0
 ---
 
 # TypeScript As Go
@@ -65,12 +65,15 @@ writing Typescript.
     each test sitting beside the code it covers as `name.test.ts`, mirroring Go's `_test.go` pattern
 20. Reach for a small, focused dependency when hand rolling something fiddly to get right (request
     signing, a mock server), but hand roll the moment it drags in a framework or SDK you do not need
+21. Separate a trailing `return` from the block above it with a blank line, so the final result of a
+    function reads as its own beat rather than crowding the guard or loop that precedes it
 
 ### Banned
 
 1. No enums, use string literal unions instead
-2. No ternary expressions, write the `if` and cover defaulting cases with a file local helper such
-   as `stringOr(v, fallback)`
+2. No ternary expressions, and no defaulting through `??` or `||`; write the `if`, or reach for a
+   file local helper such as `stringOr(v, fallback)` or `numberOr(v, fallback)`, so the fallback is
+   an explicit branch and not folded into an operator (`||` stays fine inside a boolean condition)
 3. No `else` after a `return`
 4. No `switch` case fallthrough, every case ending in `return` or `break`, with stacked labels to
    share a branch
@@ -87,3 +90,6 @@ writing Typescript.
 12. No clever generics
 13. No decorators
 14. No magic
+15. No chained array pipelines (`.filter().map()`, `.map().filter()`) and no `.reduce`; Go has no
+    map or filter, so write an explicit `for...of` that guards with `continue` and pushes into a
+    result, one readable loop over a pipeline (a single `.map` on an already clean list is fine)

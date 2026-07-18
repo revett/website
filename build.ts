@@ -23,18 +23,36 @@ I'm interested in applied AI roles within small, high agency, high impact teams,
 product engineering culture, led by founders that have done it before, where the company is remote
 friendly, requiring max 1/day per week in London.`;
 
-const PORT = Number(process.env.PORT ?? 1234);
+// numberOr returns value parsed as a number, or fallback when it is unset.
+function numberOr(value: string | undefined, fallback: number): number {
+  if (value === undefined) {
+    return fallback;
+  }
+
+  return Number(value);
+}
+
+// stringOr returns value, or fallback when it is unset.
+function stringOr(value: string | undefined, fallback: string): string {
+  if (value === undefined) {
+    return fallback;
+  }
+
+  return value;
+}
+
+const PORT = numberOr(process.env.PORT, 1234);
 // In dev mode, every generated link (pages, llms.txt, sitemap) points at the
 // server you're actually looking at, unless SITE_URL was set explicitly
 // (e.g. to rehearse a deploy target).
-if (process.argv[2] === "dev" && !process.env.SITE_URL) {
+if (process.argv[2] === "dev" && process.env.SITE_URL === undefined) {
   process.env.SITE_URL = `http://localhost:${PORT}`;
 }
 
 // Full origin the site is served from, no trailing slash. Override at build
 // time with SITE_URL, e.g. while living at a GitHub Pages project URL
 // (https://revett.github.io/website) before a custom domain is wired up.
-const BASE_URL = (process.env.SITE_URL ?? "https://revcd.com").replace(/\/$/, "");
+const BASE_URL = stringOr(process.env.SITE_URL, "https://revcd.com").replace(/\/$/, "");
 // The path portion of BASE_URL ("" for a root domain, "/website" for a
 // project page), used to prefix root-relative asset links.
 const BASE_PATH = new URL(BASE_URL).pathname.replace(/\/$/, "");
@@ -52,6 +70,7 @@ function pageURL(page: Page): string {
   if (page.slug === "") {
     return `${BASE_URL}/`;
   }
+
   return `${BASE_URL}/${page.slug}/`;
 }
 
@@ -67,6 +86,7 @@ function lastmod(file: string): string | undefined {
     if (date === "") {
       return undefined;
     }
+
     return date;
   } catch {
     return undefined;
@@ -112,6 +132,7 @@ function parse(file: string): Page {
   }
 
   const body = marked.parse(markdown) as string;
+
   return { slug, file, title, description, markdown, body };
 }
 
@@ -128,6 +149,7 @@ function render(template: string, page: Page): string {
   if (page.slug === "") {
     pageTitle = SITE_TITLE;
   }
+
   return template
     .replaceAll("{{pageTitle}}", escapeHTML(pageTitle))
     .replaceAll("{{title}}", escapeHTML(page.title))
@@ -150,6 +172,7 @@ function llmsTxt(pages: Page[]): string {
     }
     links.push(`- [${page.title}](${pageURL(page)}index.md): ${page.description}`);
   }
+
   return (
     [
       `# ${SITE_TITLE}`,
@@ -168,6 +191,7 @@ function sitemapURL(loc: string, priority: string, modified: string | undefined)
   }
   fields.push("    <changefreq>monthly</changefreq>");
   fields.push(`    <priority>${priority}</priority>`);
+
   return `  <url>\n${fields.join("\n")}\n  </url>`;
 }
 
@@ -203,11 +227,13 @@ function build(): void {
   fs.rmSync("public", { recursive: true, force: true });
   fs.cpSync("static", "public", { recursive: true });
 
-  const pages = fs
-    .readdirSync("content")
-    .filter((file) => file.endsWith(".md"))
-    .sort()
-    .map((file) => parse(path.join("content", file)));
+  const pages: Page[] = [];
+  for (const file of fs.readdirSync("content").sort()) {
+    if (!file.endsWith(".md")) {
+      continue;
+    }
+    pages.push(parse(path.join("content", file)));
+  }
 
   for (const page of pages) {
     let dir = path.join("public", page.slug);
@@ -267,7 +293,7 @@ function serve(): void {
   const root = path.resolve("public");
   http
     .createServer((req, res) => {
-      const pathname = new URL(req.url ?? "/", BASE_URL).pathname;
+      const pathname = new URL(stringOr(req.url, "/"), BASE_URL).pathname;
       let file = path.join(root, decodeURIComponent(pathname));
       if (!file.startsWith(root)) {
         res.writeHead(400).end();
@@ -281,7 +307,7 @@ function serve(): void {
         return;
       }
       res.writeHead(200, {
-        "content-type": types[path.extname(file)] ?? "application/octet-stream",
+        "content-type": stringOr(types[path.extname(file)], "application/octet-stream"),
       });
       res.end(fs.readFileSync(file));
     })
