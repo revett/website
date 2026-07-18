@@ -14,6 +14,8 @@ build.ts        Generator
 
 ## Inspiration
 
+The following websites have inspired this project:
+
 - https://deadsimplesites.com
 - https://emilkowal.ski
 - https://shud.in
@@ -22,6 +24,12 @@ build.ts        Generator
 - https://benji.org
 - https://nat.org
 - https://gregbrockman.com
+- https://adityainduraj.com
+- https://megans.website
+- https://kyh.io
+- https://shedsgns.me
+- https://hamiltonulmer.com
+- https://david.kjelkerud.com
 
 ## Development
 
