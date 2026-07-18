@@ -20,8 +20,8 @@ const CV = `I am not actively looking to change role, but am always happy to tal
 interesting products and incredible teams.
 
 I'm interested in applied AI roles within small, high agency, high impact teams, with a genuine
-product engineering culture, with founders that have done it before, and that are remote friendly,
-requiring max 1/day per week in London (expensed).`;
+product engineering culture, led by founders that have done it before, where the company is remote
+friendly, requiring max 1/day per week in London.`;
 
 const PORT = Number(process.env.PORT ?? 1234);
 // In dev mode, every generated link (pages, llms.txt, sitemap) points at the
