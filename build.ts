@@ -159,6 +159,21 @@ function render(template: string, page: Page): string {
     .replaceAll("{{body}}", page.body);
 }
 
+// The 404 page reuses template.html so it inherits the site's styling and
+// chrome. GitHub Pages serves it for any unknown path, so its asset links must
+// be prefixed with BASE_PATH, and its rel=alternate points at the home page's
+// markdown twin (a 404 has no canonical markdown of its own).
+function render404(template: string): string {
+  const body = `<p>That page doesn't exist. <a href="${BASE_PATH}/">Head back home</a>.</p>`;
+
+  return template
+    .replaceAll("{{pageTitle}}", escapeHTML(`Not found · ${SITE_TITLE}`))
+    .replaceAll("{{description}}", escapeHTML("The page you were looking for could not be found."))
+    .replaceAll("{{url}}", `${BASE_URL}/`)
+    .replaceAll("{{base}}", BASE_PATH)
+    .replaceAll("{{body}}", body);
+}
+
 function llmsTxt(pages: Page[]): string {
   const home = pages.find((page) => page.slug === "");
   if (!home) {
@@ -248,6 +263,7 @@ function build(): void {
     );
   }
 
+  fs.writeFileSync("public/404.html", render404(template));
   fs.writeFileSync("public/llms.txt", llmsTxt(pages));
   fs.writeFileSync("public/sitemap.xml", sitemapXML(pages));
   fs.writeFileSync("public/robots.txt", robotsTxt());
