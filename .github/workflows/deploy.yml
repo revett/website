@@ -32,6 +32,9 @@ jobs:
       - run: node build.ts
         env:
           SITE_URL: https://revett.github.io/website
+      # Rebuilds with the same SITE_URL and asserts on every generated file. A
+      # failing check exits non-zero and blocks the upload below.
+      - run: npm test
       - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
