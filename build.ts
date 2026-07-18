@@ -164,7 +164,7 @@ function render(template: string, page: Page): string {
 // be prefixed with BASE_PATH, and its rel=alternate points at the home page's
 // markdown twin (a 404 has no canonical markdown of its own).
 function render404(template: string): string {
-  const body = `<p>That page doesn't exist. <a href="${BASE_PATH}/">Head back home</a>.</p>`;
+  const body = `<p>That page doesn't exist → <a href="${BASE_PATH}/">head back home</a>.</p>`;
 
   return template
     .replaceAll("{{pageTitle}}", escapeHTML(`Not found · ${SITE_TITLE}`))
@@ -319,7 +319,7 @@ function serve(): void {
         file = path.join(file, "index.html");
       }
       if (!fs.existsSync(file)) {
-        res.writeHead(404, { "content-type": "text/plain" }).end("not found");
+        res.writeHead(404, { "content-type": "text/html" }).end(fs.readFileSync(path.join(root, "404.html")));
         return;
       }
       res.writeHead(200, {
