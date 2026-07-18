@@ -2,7 +2,7 @@
 
 Repo for my personal website, which really is just a bunch of Markdown pages that I hand write,
 which are then built into a static site for GitHub pages to host by `build.ts`, a ~200 line
-generator the Claude manages.
+generator that Claude maintains.
 
 ```plaintext
 content/        Markdown pages
