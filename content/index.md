@@ -1,6 +1,6 @@
 ---
 title: Charlie Revett
-description: Personal site of Charlie Revett, a software engineer based in London.
+description: Personal site of Charlie Revett, a product engineer based in London.
 ---
 
 I am a product engineer based in London, where I lead the Agents team at
